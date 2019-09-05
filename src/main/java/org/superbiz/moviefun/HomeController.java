@@ -48,23 +48,29 @@ public class HomeController {
     @GetMapping("/setup")
     public String setup(Map<String, Object> model) {
 
-        moviesTransactionTemplate.execute(new TransactionCallbackWithoutResult() {
-            // the code in this method executes in a transactional context
-            public void doInTransactionWithoutResult(TransactionStatus status) {
-                for (Movie movie : movieFixtures.load()) {
-                    moviesBean.addMovie(movie);
-                }
-            }
-        });
+//        moviesTransactionTemplate.execute(new TransactionCallbackWithoutResult() {
+//            // the code in this method executes in a transactional context
+//            public void doInTransactionWithoutResult(TransactionStatus status) {
+//                for (Movie movie : movieFixtures.load()) {
+//                    moviesBean.addMovie(movie);
+//                }
+//            }
+//        });
+        for (Movie movie : movieFixtures.load()) {
+            moviesBean.addMovie(movie);
+        }
 
-        albumsTransactionTemplate.execute(new TransactionCallbackWithoutResult() {
-            // the code in this method executes in a transactional context
-            public void doInTransactionWithoutResult(TransactionStatus status) {
-                for (Album album : albumFixtures.load()) {
-                    albumsBean.addAlbum(album);
-                }
-            }
-        });
+//        albumsTransactionTemplate.execute(new TransactionCallbackWithoutResult() {
+//            // the code in this method executes in a transactional context
+//            public void doInTransactionWithoutResult(TransactionStatus status) {
+//                for (Album album : albumFixtures.load()) {
+//                    albumsBean.addAlbum(album);
+//                }
+//            }
+//        });
+        for (Album album : albumFixtures.load()) {
+            albumsBean.addAlbum(album);
+        }
         model.put("movies", moviesBean.getMovies());
         model.put("albums", albumsBean.getAlbums());
 
